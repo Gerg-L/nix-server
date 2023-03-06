@@ -2,9 +2,9 @@
   imports = [
     disko.nixosModules.disko
   ];
-  disk = {
+  disko.devices = {
     #TODO make sure it's a nvme
-    nvme0n1 = {
+    disk.nvme0n1 = {
       device = "/dev/nvme0n1";
       type = "disk";
       content = {
@@ -15,8 +15,8 @@
             #make boot partition
             name = "BOOT";
             type = "partition";
-            start = "1MiB";
-            end = "1000";
+            start = "1M";
+            end = "1000M";
             bootable = true;
             content = {
               type = "filesystem";
@@ -28,7 +28,7 @@
             #make root parition
             name = "ROOT";
             type = "partition";
-            start = "1000";
+            start = "1001M";
             end = "100%";
             part-type = "primary";
             bootable = true;

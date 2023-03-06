@@ -1,5 +1,5 @@
 inputs: {
   imports = [
-    (import unfree.nix inputs)
+    (import ./unfree.nix inputs)
   ];
 }

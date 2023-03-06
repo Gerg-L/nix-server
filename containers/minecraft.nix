@@ -2,8 +2,8 @@ _: {
   containers."minecraft" = {
     privateNetwork = true;
     hostBridge = "br0";
-    localAddress = ""; #TODO
-    localAddress6 = ""; #TODO
+    #localAddress = ""; #TODO
+    #localAddress6 = ""; #TODO
     bindMounts."/mnt/minecraft" = {
       mountPoint = "/minecraft";
       hostPath = "/mnt/minecraft";
@@ -22,7 +22,7 @@ _: {
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [pkgs.neovim];
       networking = {
-        defaultGateway = ""; #TODO
+        #defaultGateway = ""; #TODO
         nameservers = ["1.1.1.1" "1.0.0.1"];
         firewall = {
           allowedUDPPorts = [25565];

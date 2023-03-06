@@ -1,4 +1,8 @@
-_: {pkgs, ...}: {
+_: {
+  pkgs,
+  lib,
+  ...
+}: {
   environment = {
     defaultPackages = []; #don't install anything by default
     #install packages for user
@@ -18,41 +22,42 @@ _: {pkgs, ...}: {
   #enable ssh
   services.openssh = {
     enable = true;
-    settings = {
-      PermitRootLogin = "yes";
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
+    permitRootLogin = "yes";
+    passwordAuthentication = false;
+    kbdInteractiveAuthentication = false;
   };
   users = {
     mutableUsers = false;
     users.root = {
-      useDefaultShell = true;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJWbwkFJmRBgyWyWU+w3ksZ+KuFw9uXJN3PwqqE7Z/i8 gerg@gerg-desktop"
         #TODO make duplex make a ssh key
       ];
     };
   };
+
+  #TODO get ip address and gateway
   networking = {
     hostName = "duplex-server";
     nameservers = ["1.1.1.1" "1.0.0.1"];
-    defaultGateway = "";
+    #defaultGateway = ""; #TODO
     interfaces = {
       "br0" = {
         name = "br0";
-        macAddress = "";
+        #macAddress = "";
         ipv4.addresses = [
-          {
-            address = "";
-            prefixLength = 24;
-          }
+          #TODO
+          #{
+          #  address = "";
+          #  prefixLength = 24;
+          #}
         ];
         ipv6.addresses = [
-          {
-            address = "";
-            prefixLength = 64;
-          }
+          #TODO
+          #{
+          #   address = "";
+          #   prefixLength = 64;
+          #}
         ];
       };
     };
@@ -68,7 +73,7 @@ _: {pkgs, ...}: {
   time.timeZone = "America/New_York";
   services = {
     timesyncd = {
-      enable = true;
+      enable = lib.mkDefault true;
       servers = [
         "time.cloudflare.com"
       ];
@@ -76,7 +81,6 @@ _: {pkgs, ...}: {
   };
   i18n.defaultLocale = "en_US.UTF-8";
 
-  #TODO get ip address and gateway
   hardware = {
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;

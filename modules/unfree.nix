@@ -5,6 +5,7 @@ _: {
 }: let
   allowed = config.nixpkgs.allowedUnfree;
 in {
+  #easy way to allow specific unfree packages
   options.nixpkgs = {
     allowedUnfree = lib.mkOption {
       type = lib.types.listOf lib.types.string;

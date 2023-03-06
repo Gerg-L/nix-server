@@ -3,6 +3,7 @@
     disko.nixosModules.disko
   ];
   disk = {
+    #TODO make sure it's a nvme
     nvme0n1 = {
       device = "/dev/nvme0n1";
       type = "disk";
@@ -11,6 +12,7 @@
         format = "gpt";
         partitions = [
           {
+            #make boot partition
             name = "BOOT";
             type = "partition";
             start = "1MiB";
@@ -23,6 +25,7 @@
             };
           }
           {
+            #make root parition
             name = "ROOT";
             type = "partition";
             start = "1000";

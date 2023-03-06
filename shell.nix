@@ -1,8 +1,5 @@
-_: {
-  pkgs,
-  config,
-  ...
-}: rec {
+_: {pkgs, ...}: {
+  #grab some packages
   environment = {
     systemPackages = [
       pkgs.page
@@ -18,14 +15,12 @@ _: {
       SYSTEMD_PAGERSECURE = "true";
     };
     shellAliases = {
-      #make sudo use aliases
-      sudo = "sudo ";
       #paste link trick
       pastebin = "curl -F 'clbin=<-' https://clbin.com";
       #nix stuff
       nix-update = "nix flake update /etc/nixos/";
-      nix-switch = "nixos-rebuild switch --flake /etc/nixos/#${config.networking.hostName} --use-remote-sudo";
-      nix-boot = "nixos-rebuild boot --flake /etc/nixos/#${config.networking.hostName} --use-remote-sudo";
+      nix-switch = "nixos-rebuild switch";
+      nix-boot = "nixos-rebuild boot";
       nix-clean = "nix-collect-garbage -d";
       nix-gc-force = "rm /nix/var/nix/gcroots/auto/*";
       nix-gc-check = "nix-store --gc --print-roots | egrep -v \"^(/nix/var|/run/\w+-system|\{memory|/proc)\"";
@@ -44,13 +39,6 @@ _: {
       lt = "exa --tree --level=2";
     };
     interactiveShellInit = "neofetch";
-  };
-  security.sudo = {
-    enable = true;
-    execWheelOnly = true;
-    extraConfig = ''
-      Defaults env_keep += "${builtins.concatStringsSep " " (builtins.attrNames environment.variables)}"
-    '';
   };
 
   #zsh stuff

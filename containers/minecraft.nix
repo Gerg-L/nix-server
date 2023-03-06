@@ -2,8 +2,8 @@ _: {
   containers."minecraft" = {
     privateNetwork = true;
     hostBridge = "br0";
-    localAddress = ""; ##TODO
-    localAddress6 = ""; ##TODO
+    localAddress = ""; #TODO
+    localAddress6 = ""; #TODO
     bindMounts."/mnt/minecraft" = {
       mountPoint = "/minecraft";
       hostPath = "/mnt/minecraft";
@@ -22,13 +22,14 @@ _: {
       nixpkgs.config.allowUnfree = true;
       environment.systemPackages = [pkgs.neovim];
       networking = {
-        defaultGateway = ""; ##TODO
+        defaultGateway = ""; #TODO
         nameservers = ["1.1.1.1" "1.0.0.1"];
         firewall = {
           allowedUDPPorts = [25565];
           allowedTCPPorts = [25565];
         };
       };
+      #dirty hack to set the mac address
       systemd.services.setmacaddr = {
         script = ''
            /run/current-system/sw/bin/ip link set dev eth0 address 00:00:00:00:00:10 #TODO

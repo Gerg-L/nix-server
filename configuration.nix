@@ -1,6 +1,7 @@
 _: {pkgs, ...}: {
   environment = {
     defaultPackages = []; #don't install anything by default
+    #install packages for user
     systemPackages = [
       pkgs.efibootmgr #efi editor
       pkgs.pciutils #lspci
@@ -75,7 +76,7 @@ _: {pkgs, ...}: {
   };
   i18n.defaultLocale = "en_US.UTF-8";
 
-  ##TODO get ip address and gateway
+  #TODO get ip address and gateway
   hardware = {
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;

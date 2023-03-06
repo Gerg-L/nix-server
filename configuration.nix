@@ -1,4 +1,4 @@
-_: {
+{unstable, ...}: {
   pkgs,
   lib,
   ...
@@ -7,8 +7,6 @@ _: {
     defaultPackages = []; #don't install anything by default
     #install packages for user
     systemPackages = [
-      pkgs.efibootmgr #efi editor
-      pkgs.pciutils #lspci
       pkgs.bottom #view tasks
       pkgs.nix-tree #view packages
     ];
@@ -33,9 +31,17 @@ _: {
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJWbwkFJmRBgyWyWU+w3ksZ+KuFw9uXJN3PwqqE7Z/i8 gerg@gerg-desktop"
         #TODO make duplex make a ssh key
       ];
+      password = null;
     };
   };
 
+  services.cockpit = {
+    enable = true;
+    openFirewall = true;
+    port = 9090;
+    package = unstable.legacyPackages.${pkgs.system}.cockpit;
+    settings = {};
+  };
   #TODO get ip address and gateway
   networking = {
     hostName = "duplex-server";
